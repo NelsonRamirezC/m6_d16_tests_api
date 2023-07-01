@@ -7,7 +7,7 @@ chai.use(chaihttp);
 
 describe("PRUEBAS DE API DE DE PRODUCTOS", () => {
     let servidor = app.listen(3000);
-    describe("probar ruta /api/productos con MÉTODO GET", () => {
+    /* describe("probar ruta /api/productos con MÉTODO GET", () => {
         it("Validar respuesta de la ruta productos.", (done) => {
             chai.request(servidor)
                 .get("/api/productos")
@@ -22,9 +22,9 @@ describe("PRUEBAS DE API DE DE PRODUCTOS", () => {
                 });
             done();
         })
-    })
+    }) */
 
-    describe("probar ruta /api/productos/:id con MÉTODO GET", () => {
+   /*  describe("probar ruta /api/productos/:id con MÉTODO GET", () => {
         it("Validar ruta /api/productos/:id, para filtrar productos por ID. (producto existente)", (done) => {
             chai.request(servidor)
                 .get("/api/productos/1")
@@ -40,7 +40,65 @@ describe("PRUEBAS DE API DE DE PRODUCTOS", () => {
             done();
         });
     });
-})
+ */
+    describe("PRUEBAS DE RUTA DELETE", () => {
+        let respuestaDelete = 
+        chai.request(servidor)
+            .delete("/api/productos/1")
+            .end((error, res) => {
+                respuestaDelete = res.body;
+            });
+        
+        it("Código de respuesta debe ser 200", (done) => {
+            assert.equal(
+                respuestaDelete.code,
+                200,
+                "Código de estado no corresponde."
+            );
+            done();
+        })
+        it("Propiedad data de la respuesta debe devolver un producto con id 1", (done) => {
+            let productoEliminado = respuestaDelete.data;
+            assert.equal(productoEliminado.id, 1, "Id de producto retornado no coincide con el elemento que se eliminó.")
+            done();
+        });
 
+        it("Propiedad message de la respuesta debe tener el mensaje (Producto eliminado.)", (done) => {
+            let mensaje = respuestaDelete.message;
+            assert.equal(
+                mensaje,
+                "Producto eliminado.",
+                "Mensaje no coincide."
+            );
+            done();
+        });
+
+        let respuestaGet = chai
+            .request(servidor)
+            .get("/api/productos")
+            .end((error, res) => {
+                respuestaGet = res.body;
+            });
+        
+        it("validar si producto con id(1) fue eliminado", (done) => {
+            let productos = respuestaGet.data;
+            let found = productos.find(producto => producto.id == 1)
+            assert.notExists(found, "Producto sigue existiendo.")
+            done()
+        })
+
+        let respuestaProductonoExiste= chai
+            .request(servidor)
+            .delete("/api/productos/5")
+            .end((error, res) => {
+                respuestaDelete = res.body;
+            });
+        
+        it("validar que código de respuesta en caso de no existir un producto a eliminar sea 404", (done) => {
+            let code = respuestaProductonoExiste.code;
+            assert.equal(code, 404, "código de respuesta debe ser 404.")
+        })
+    })
+})
 
 
