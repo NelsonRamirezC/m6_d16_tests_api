@@ -1,14 +1,14 @@
 {
-    "productos": [
-        {
-            "id": 1,
-            "nombre": "Galletas",
-            "precio": 5000
-        },
-        {
-            "id": 2,
-            "nombre": "Bebiba de 3 litros",
-            "precio": 2500
-        }
-    ]
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Galletas",
+      "precio": 5000
+    },
+    {
+      "id": 2,
+      "nombre": "Bebiba de 3 litros",
+      "precio": 2500
+    }
+  ]
 }
