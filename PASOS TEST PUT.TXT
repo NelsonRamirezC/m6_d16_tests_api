@@ -1,0 +1,15 @@
+ELEGIR UN PRODUCTO EXISTENTE
+
+EN PETICIÓN ENVIAR ID, NOMBRE, PRECIO
+
+SERVIDOR DEBE RESPONDER CON CON UNA PROPIEDAD DATA CON EL PRODUCTO MODIFICADO.
+
+CON LA RESPUESTA DEL SERVIDOR TIENEN QUE VERIFICAR QUE LE OBJETO TENGA EL MISMO NOMBRE
+Y EL MISMO PRECIO QUE SE ENVÍO
+
+original: id -> 1, nombre -> bebida, precio -> 500
+datos a modificr ->id -> 1, nombre -> Bebida 500 cc, precio -> 450
+
+validar que el retorno coincida con esos cambios
+
+por ultimo validar si en la base de datos se registraron dichos cambios.
